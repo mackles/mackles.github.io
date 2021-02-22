@@ -64,14 +64,9 @@ Let's implement a basic algorithm to start assigning colours to our vertices. On
 
 - Iterate over every vertex  
 	-  For the current vertex get the set of colours used for its neighbours  
-	-  Iterate through all the colours you can use, and assign the first one that is not used  
+	-  Find the first colour that in our list of colours that is not used by any neighbours
 
-
-Greedy algorithms are locally optimised, which means that every step of the algorithm will only use local values (in this case only adjacent nodes to the current vertex). The drawbacks of this algorithm are that the solution depends on the order of the input vertices and that we will receive a sub-optimal solution as the algorithm won't (by definition) necessarily identify global optimizations.
-
-
-The simple way to mitigate this is to run the algorithm multiple times with a random sort being applied to each iteration and select the result with the fewest colours. Given the dataset is metadata (i.e data types and relationships) scaling issues are not a concern.
-
+In python code this would look something like (we use integers starting at 0 to denote colours):
 {{< highlight python >}}
 def colour(graph):
     colours = {}
@@ -86,10 +81,14 @@ def colour(graph):
             # Find the first available colour that hasn't been used
             if colour != used_colour:
                 break
-            colour = 1
+            colour = colour + 1
         colours[vertex] = colour
     return colours
 {{< / highlight >}}
+
+Greedy algorithms are locally optimised, which means that every step of the algorithm will only use local values (in this case only adjacent nodes to the current vertex). The drawbacks of this algorithm are that the solution depends on the order of the input vertices and that we will receive a sub-optimal solution as the algorithm won't (by definition) necessarily identify global optimizations.
+
+The simple way to mitigate this is to run the algorithm multiple times with a random sort being applied to each iteration and select the result with the fewest colours. Given the dataset is metadata (i.e data types and relationships) scaling issues are not a concern.
 
 
 # Solution
