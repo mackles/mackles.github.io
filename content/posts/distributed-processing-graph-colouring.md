@@ -2,7 +2,6 @@
 title: "Distributed Processing: Graph Colouring"
 description: "A detour from data indexing into mathematics"
 date: 2021-02-21T02:57:19Z
-draft: true
 ---
 
 # Introduction
