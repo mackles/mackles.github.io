@@ -15,7 +15,7 @@ Last year I was presented with a rather interesting issue which gave me an oppor
 
 *How many workers do we start and what entities does each worker process?*
 
-This problem is a perfect example of why I love maths and computer science - what was a complex distributed processing problem constrained by software limitations can be distilled down to a simple problem a non-technical individual can understand. 
+This problem is a perfect example of why I love maths and computer science - what is a complex distributed processing problem constrained by software limitations can be distilled down to a simple problem a non-technical individual can understand. 
 
 # Simple Example 
 
