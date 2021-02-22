@@ -1,5 +1,5 @@
 theme = "archie-network"
-baseURL = "http://192.168.1.82:1313/"
+baseURL = "mackle.io"
 languageCode = "en-us"
 title = "/home/mackle/emporium"
 copyright = "© Stuart Mackle"
