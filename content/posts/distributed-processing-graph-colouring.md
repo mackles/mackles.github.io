@@ -55,7 +55,7 @@ Let's assign a colour to each group of entities that are processed, e.g first gr
 
 # Graph Colouring
 
-Graph colouring is a a [famous problem](https://en.wikipedia.org/wiki/Graph_coloring#History) within maths and computer science. It can be explained quite simply as, given a graph (here's one for example):
+Graph colouring is a [famous problem](https://en.wikipedia.org/wiki/Graph_coloring#History) within maths and computer science. It can be explained quite simply as, given a graph (here's one for example):
 
 {{< graph colouring >}}
     var nodes = new vis.DataSet([
