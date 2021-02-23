@@ -213,7 +213,7 @@ In this case the best_chromatic_number is number of iterations the best solution
 
 # Limitations
 
-This approach to this problem does come with some caveats. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
+This approach some caveats however. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
 
 Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease with increased similarity to a graph that only requires two colours (namely bipartite graphs).
 
