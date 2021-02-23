@@ -89,7 +89,7 @@ Graph colouring is a [famous problem](https://en.wikipedia.org/wiki/Graph_colori
 How many crayons do you need such that no circles that are connected have the same colour?
 
 We then can reframe our initial problem to be:  
-*Given a graph, what it the minimum set of colours I need to colour each node such that two adjacent nodes do not share the same colour?*
+*Given a graph, what is the minimum set of colours I need to colour each node such that two adjacent nodes do not share the same colour?*
 
 Generalised solutions to it are not polynomial in execution time, and those that are polynomial in execution time constrain the input graphs they apply to.  
 
@@ -131,12 +131,18 @@ The simple way to mitigate this is to run the algorithm multiple times with a ra
 We've identified a simple approach to solving this problem, what remains is to implement the complete algorithm. 
 
 {{< highlight python >}}
+
+import sys
+import random
+
 def colour(graph, order):
   colours = {}
   max_colour = 0
   for vertex in order:
     # Get the colours of the neighbours
-    used_colours = set([colours[neighbour] for neighbour in graph[vertex] if neighbour in colours])
+    used_colours = set(
+        [colours[neighbour] for neighbour in graph[vertex] if neighbour in colours]
+    )
 
     colour = 0
     for used_colour in used_colours:
@@ -149,7 +155,19 @@ def colour(graph, order):
     colours[vertex] = colour
   return colours, max_colour
 
-graph = {"A": ["B", "C"], "B": ["A", "D"], "C": ["A", "D"], "D": ["B", "C"]}
+# Graph from second example
+graph = {
+  "A": ["B", "C", "D"],  
+  "B": ["A", "D"],  
+  "C": ["A", "D"],  
+  "D": ["A", "B", "C", "E"],    
+  "E": ["D","F", "J","H"],  
+  "F": ["E", "G"],   
+  "G": ["F","H"],  
+  "H": ["E","G","I"],  
+  "I": ["H"], 
+  "J": ["E"]
+}
 
 number_iterations = 1000
 vertices= list(graph.keys())
@@ -157,20 +175,40 @@ best_chromatic_number = sys.maxsize
 best_colours = {}
 
 for i in range(number_iterations):
-  random.shuffle(nodes)
+  random.shuffle(vertices)
   vertex_colours, max_colour = colour(graph, vertices)
+  # Colours are 0 indexed, so the number of colours is max colour + 1
   if max_colour + 1 < best_chromatic_number:
       best_colours = vertex_colours
       best_chromatic_number = max_colour + 1
 
 
-print(best_chromatic_number)
-print(best_colours)
-
+print("Chromatic number:" + str(best_chromatic_number))
+print("Vertex colours:" + str(best_colours))
 
 {{< / highlight >}}
 
+Running this gives us:
+{{< highlight plaintext >}}
+Chromatic number: 3
+Vertex colours: {
+    'A': 2, 
+    'B': 1, 
+    'C': 1
+    'D': 0, 
+    'E': 1, 
+    'F': 2, 
+    'G': 0, 
+    'H': 2, 
+    'I': 0, 
+    'J': 0, 
+}
+{{< / highlight >}}
+
+
 In this case the best_chromatic_number is number of iterations the best solution will require to complete.
+
+
 
 
 # Limitations
@@ -183,7 +221,7 @@ Most data models will lie somewhere inbetween this, the number of colours (or gr
 
 This solution lays out a general path for optimizing this set of problems (not just distributed processing). There are further optimizations that can be made, either by constraining the input graph or by providing insight to the greedy algorithm (e.g if we have a lot of vertices with only one edge, we should make sure these are coloured the same). 
 
-If we can instruct the workers to only process a subet of the relationships then the initial problem changes entirely, which may be the topic of a future blog post.
+If we can instruct the workers to only process a subset of the relationships then the initial problem changes entirely, which may be the topic of a future blog post.
 
 I hope you found this interesting, and it has piqued your interest in graph theory and its application to distributed systems.
 
