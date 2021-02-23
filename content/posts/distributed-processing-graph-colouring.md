@@ -9,8 +9,8 @@ date: 2021-02-21T02:57:19Z
 Last year I was presented with a rather interesting issue which gave me an opportunity to use some latent mathematics knowledge. This post covers the simplest form of the problem where some of the complexity is removed via constraints. The problem revolves around efficiently processing a data model definiton and can be summarised as follows: 
 
 *Given an entity-relationship(ER) model with only many-to-many relationships and multiple isolated workers, with each worker having the following properties:*  
-*- they can only process a single entity and its relationships concurrently*  
-*- two workers processing the same relationship at the same time will fail*  
+*- it can only process a single entity and the associated relationships concurrently*  
+*- it will fail if it processes a relationship at the same time as another worker*  
 *- each entity and its set of relationships take the same time to process.*
 
 *How many workers do we start and what entities does each worker process?*
@@ -176,9 +176,9 @@ In this case the best_chromatic_number is number of iterations the best solution
 
 # Limitations
 
-This approach to this problem does come with some caveats. We could construct a data model that only uses two colours, like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)) which this method will work well one, given that even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
+This approach to this problem does come with some caveats. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
 
-Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease the closer we are to a graph that only requires two colours (these are called bipartite graphs).
+Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease with increased similarity to a graph that only requires two colours (namely bipartite graphs).
 
 # Conclusion
 
