@@ -6,9 +6,9 @@ date: 2021-02-21T02:57:19Z
 
 # Introduction
 
-Last year I was presented with a rather interesting issue which gave me an opportunity to use some latent mathematics knowledge. This post covers the simplest form of the problem where some of the complexity is removed via constraints, which is defined as follows:
+Last year I was presented with a rather interesting issue which gave me an opportunity to use some latent mathematics knowledge. This post covers the simplest form of the problem where some of the complexity is removed via constraints. The problem revolves around efficiently processing a data model definiton and can be summarised as follows: 
 
-*Given an entity-relationship(ER) model with only many-to-many relationships and multiple isolated workers with the following properties:*  
+*Given an entity-relationship(ER) model with only many-to-many relationships and multiple isolated workers, with each worker having the following properties:*  
 *- they can only process a single entity and its relationships concurrently*  
 *- two workers processing the same relationship at the same time will fail*  
 *- each entity and its set of relationships take the same time to process.*
@@ -47,16 +47,51 @@ Worker 2 - [ D, C ]
 
 In my view it is important to explore simple examples when exploring an issue of reasonable complexity. When exploring complex problems often there are multiple insights to be gained and viewing these insights in isolation with simple examples helps to build intuition and understanding.
 
-# Adjacent Entities and Graph Colouring
+# Adjacent Entities 
 
 In graph theory, two vertices that share an edge are defined to be adjacent. Our constraint is now that any set of entities we processes at the same time cannot contain any adjacent entities.
 
-Let's assign a colour to each group of entities that are processed, e.g first group processed is blue, second group is red and so on. We then reframe our constraint to be that if we colour all the vertices on the graph, no adjacent vertices can share the same colour. To minimize the number of iterations (i.e process the entities faster) we must minimize the number of colours we use while obeying the constraint. This leads us to the following problem definition:
+Let's assign a colour to each group of entities that are processed, e.g first group processed is blue, second group is red and so on. We then reframe our constraint to be that if we colour all the vertices on the graph, no adjacent vertices can share the same colour (if they were they'd be processed at the same time). To minimize the number of iterations (i.e process the entities faster) we must minimize the number of colours. This is a special case of graph labeling, a topic within graph theory, known as Graph colouring.
 
+# Graph Colouring
+
+Graph colouring is a a [famous problem](https://en.wikipedia.org/wiki/Graph_coloring#History) within maths and computer science. It can be explained quite simply as, given a graph (here's one for examples):
+
+{{< graph colouring >}}
+    var nodes = new vis.DataSet([
+        {id: 1, label: 'A'},
+        {id: 2, label: 'B'},
+        {id: 3, label: 'C'},
+        {id: 4, label: 'D'},
+        {id: 5, label: 'E'},
+        {id: 6, label: 'F'},
+        {id: 7, label: 'G'},
+        {id: 8, label: 'H'},
+        {id: 9, label: 'I'},
+        {id: 10, label: 'J'},
+    ]);
+    var edges = new vis.DataSet([
+        {from: 1, to: 2},
+        {from: 1, to: 4},
+        {from: 1, to: 3},
+        {from: 4, to: 2},
+        {from: 4, to: 3},
+        {from: 5, to: 4},
+        {from: 6, to: 5},
+        {from: 7, to: 6},
+        {from: 7, to: 8},
+        {from: 5, to: 8},
+        {from: 9, to: 8},
+        {from: 5, to: 10},
+    ]);
+{{< / graph >}}
+
+How many crayons do you need such that no circles that are connected have the same colour?
+
+We then can reframe our initial problem to be:  
 *Given a graph, what it the minimum set of colours I need to colour each node such that two adjacent nodes do not share the same colour?*
 
-This is a [famous problem](https://en.wikipedia.org/wiki/Graph_coloring#History) within maths and computer science. Generalised solutions to it are not polynomial in execution time, and those that are polynomial in execution time constrain the input graphs that apply to.  
-
+Generalised solutions to it are not polynomial in execution time, and those that are polynomial in execution time constrain the input graphs they apply to.  
 
 # Greed is good
 
@@ -64,7 +99,7 @@ Let's implement a basic algorithm to start assigning colours to our vertices. On
 
 - Iterate over every vertex  
 	-  For the current vertex get the set of colours used for its neighbours  
-	-  Find the first colour that in our list of colours that is not used by any neighbours
+	-  Find the first colour that in our list of colours that is not used by any neighbours and assign it to the current vertex
 
 In python code this would look something like (we use integers starting at 0 to denote colours):
 {{< highlight python >}}
@@ -138,6 +173,12 @@ print(best_colours)
 
 In this case the best_chromatic_number is number of iterations the best solution will require to complete.
 
+
+# Limitations
+
+This approach to this problem does come with some caveats. We could construct a data model that only uses two colours, like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)) which this method will work well one, given that even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
+
+Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease the closer we are to a graph that only requires two colours (these are called bipartite graphs).
 
 # Conclusion
 
