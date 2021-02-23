@@ -38,14 +38,13 @@ var network=new vis.Network(container,data,options);</script><p>How many crayons
 graph <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;A&#34;</span>: [<span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>], <span style=color:#e6db74>&#34;B&#34;</span>: [<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;D&#34;</span>], <span style=color:#e6db74>&#34;C&#34;</span>: [<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;D&#34;</span>], <span style=color:#e6db74>&#34;D&#34;</span>: [<span style=color:#e6db74>&#34;B&#34;</span>, <span style=color:#e6db74>&#34;C&#34;</span>]}
 
 number_iterations <span style=color:#f92672>=</span> <span style=color:#ae81ff>1000</span>
-graph <span style=color:#f92672>=</span> build_graph(vertexes, edges)
-nodes <span style=color:#f92672>=</span> list(graph<span style=color:#f92672>.</span>keys())
+vertices<span style=color:#f92672>=</span> list(graph<span style=color:#f92672>.</span>keys())
 best_chromatic_number <span style=color:#f92672>=</span> sys<span style=color:#f92672>.</span>maxsize
 best_colours <span style=color:#f92672>=</span> {}
 
 <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(number_iterations):
   random<span style=color:#f92672>.</span>shuffle(nodes)
-  vertex_colours, max_colour <span style=color:#f92672>=</span> colour(graph, nodes)
+  vertex_colours, max_colour <span style=color:#f92672>=</span> colour(graph, vertices)
   <span style=color:#66d9ef>if</span> max_colour <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&lt;</span> best_chromatic_number:
       best_colours <span style=color:#f92672>=</span> vertex_colours
       best_chromatic_number <span style=color:#f92672>=</span> max_colour <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
