@@ -152,14 +152,13 @@ def colour(graph, order):
 graph = {"A": ["B", "C"], "B": ["A", "D"], "C": ["A", "D"], "D": ["B", "C"]}
 
 number_iterations = 1000
-graph = build_graph(vertexes, edges)
-nodes = list(graph.keys())
+vertices= list(graph.keys())
 best_chromatic_number = sys.maxsize
 best_colours = {}
 
 for i in range(number_iterations):
   random.shuffle(nodes)
-  vertex_colours, max_colour = colour(graph, nodes)
+  vertex_colours, max_colour = colour(graph, vertices)
   if max_colour + 1 < best_chromatic_number:
       best_colours = vertex_colours
       best_chromatic_number = max_colour + 1
