@@ -15,5 +15,5 @@ Some of my (slightly) less professional interests include:
 * Spicy Shirts
 * Craft Beer
 
-If you want to contact me or collaborate, the best place to reach me is stuart@mackle.io
+If you want to contact me or collaborate, the best place to reach me is [LinkedIn](https://www.linkedin.com/in/stuart-mackle-5b2055105/).
 

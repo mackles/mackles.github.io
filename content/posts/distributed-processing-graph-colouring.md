@@ -19,7 +19,7 @@ This problem is a perfect example of why I love maths and computer science - wha
 
 # Simple Example 
 
-Consider this simple example of an entity-relationship model, how would we distribute these entities to multiple workers?  
+Given this simple example of an entity-relationship model, how would we distribute these entities to multiple workers?  
 
 {{< graph basic `Tip: Select any of the entities and the diagram will highlight which relationships are also processed.`>}}
     var nodes = new vis.DataSet([
@@ -49,9 +49,9 @@ In my view it is important to explore simple examples when exploring an issue of
 
 # Adjacent Entities 
 
-In graph theory, two vertices that share an edge are defined to be adjacent. Our constraint is now that any set of entities we processes at the same time cannot contain any adjacent entities.
+In graph theory, two vertices that share an edge are defined to be adjacent. Our constraint is now that any set of entities we process at the same time cannot contain any adjacent entities.
 
-Let's assign a colour to each group of entities that are processed, e.g first group processed is blue, second group is red and so on. We then reframe our constraint to be that if we colour all the vertices on the graph, no adjacent vertices can share the same colour (if they were they'd be processed at the same time). To minimize the number of iterations (i.e process the entities faster) we must minimize the number of colours. This is a special case of graph labeling, a topic within graph theory, known as Graph colouring.
+Let's assign a colour to each group of entities that are processed, e.g. first group processed is blue, second group is red and so on. We then reframe our constraint to be that if we colour all the vertices on the graph, no adjacent vertices can share the same colour (if they were they'd be processed at the same time). To minimize the number of iterations (i.e. process the entities faster) we must minimize the number of colours. This is a special case of graph labeling, a topic within graph theory, known as Graph colouring.
 
 # Graph Colouring
 
@@ -99,7 +99,7 @@ Let's implement a basic algorithm to start assigning colours to our vertices. On
 
 - Iterate over every vertex  
 	-  For the current vertex get the set of colours used for its neighbours  
-	-  Find the first colour that in our list of colours that is not used by any neighbours and assign it to the current vertex
+	-  Find the first colour in our list of colours that is not used by any neighbours and assign it to the current vertex
 
 In python code this would look something like (we use integers starting at 0 to denote colours):
 {{< highlight python >}}
@@ -123,7 +123,7 @@ def colour(graph):
 
 Greedy algorithms are locally optimised, which means that every step of the algorithm will only use local values (in this case only adjacent nodes to the current vertex). The drawbacks of this algorithm are that the solution depends on the order of the input vertices and that we will receive a sub-optimal solution as the algorithm won't (by definition) necessarily identify global optimizations.
 
-The simple way to mitigate this is to run the algorithm multiple times with a random sort being applied to each iteration and select the result with the fewest colours. Given the dataset is metadata (i.e data types and relationships) scaling issues are not a concern.
+The simple way to mitigate this is to run the algorithm multiple times with a random sort being applied to each iteration and select the result with the fewest colours. Given the dataset is metadata (i.e. data types and relationships) scaling issues are not a concern.
 
 
 # Solution
@@ -213,13 +213,13 @@ In this case the best_chromatic_number is number of iterations the best solution
 
 # Limitations
 
-This approach some caveats however. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution close to that with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where all vertices are adjacent which means every vertex would need a different colour, which means the trivial solution (process one entity at a time) is the only solution. 
+This approach does have some caveats however. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution using two colours, if not close to it, with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where every vertexiss adjacent to all other vertices which means every vertex would need a different colour.Therefore, the trivial solution (process one entity at a time) is the only solution. 
 
 Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease with increased similarity to a graph that only requires two colours (namely bipartite graphs).
 
 # Conclusion
 
-This solution lays out a general path for optimizing this set of problems (not just distributed processing). There are further optimizations that can be made, either by constraining the input graph or by providing insight to the greedy algorithm (e.g if we have a lot of vertices with only one edge, we should make sure these are coloured the same). 
+This solution lays out a general path for optimizing this set of problems (not just distributed processing). There are further optimizations that can be made, either by constraining the input graph or by providing insight to the greedy algorithm (e.g. if we have a lot of vertices with only one edge, we should make sure these are coloured the same). 
 
 If we can instruct the workers to only process a subset of the relationships then the initial problem changes entirely, which may be the topic of a future blog post.
 
