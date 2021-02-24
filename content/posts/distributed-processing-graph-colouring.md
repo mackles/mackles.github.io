@@ -228,4 +228,4 @@ I hope you found this interesting, and it has piqued your interest in graph theo
 # References
 [Graph colouring algorithms - Thore Husfeldt](https://thorehusfeldt.files.wordpress.com/2010/08/gca.pdf)
 
-
+Thanks to Graham, Nick & Seb for proof reading this post. 
