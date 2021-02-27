@@ -95,7 +95,7 @@ Generalised solutions to it are not polynomial in execution time, and those that
 
 # Greed is good
 
-Let's implement a basic algorithm to start assigning colours to our vertices. One of the simplest is the [greedy algorithm](https://en.wikipedia.org/wiki/Greedy_coloring)). The steps of the greedy algorithm are as follows:
+Let's implement a basic algorithm to start assigning colours to our vertices. One of the simplest is the [greedy algorithm](https://en.wikipedia.org/wiki/Greedy_coloring). The steps of the greedy algorithm are as follows:
 
 - Iterate over every vertex  
 	-  For the current vertex get the set of colours used for its neighbours  
@@ -146,12 +146,12 @@ def colour(graph, order):
 
     colour = 0
     for used_colour in used_colours:
+        if colour > max_colour:
+            max_colour = colour 
         # Find the first available colour that hasn't been used
         if colour != used_colour:
             break
         colour = colour + 1
-        if colour > max_colour:
-            max_colour = colour
     colours[vertex] = colour
   return colours, max_colour
 
@@ -213,7 +213,7 @@ In this case the best_chromatic_number is number of iterations the best solution
 
 # Limitations
 
-This approach does have some caveats however. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution using two colours, if not close to it, with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where every vertexiss adjacent to all other vertices which means every vertex would need a different colour.Therefore, the trivial solution (process one entity at a time) is the only solution. 
+This approach does have some caveats however. We could construct a data model that only uses two colours like a line of vertices or a [star graph](https://en.wikipedia.org/wiki/Star_(graph_theory)), which this algorithm will work well on. Even with thousands of entities they will still optimally use two colours (and we will find a solution using two colours, if not close to it, with our greedy algorithm). The worst case is a complete graph, which is defined as a graph where every vertex is adjacent to all other vertices which means every vertex would need a different colour.Therefore, the trivial solution (process one entity at a time) is the only solution. 
 
 Most data models will lie somewhere inbetween this, the number of colours (or groups to process) will decrease with increased similarity to a graph that only requires two colours (namely bipartite graphs).
 
