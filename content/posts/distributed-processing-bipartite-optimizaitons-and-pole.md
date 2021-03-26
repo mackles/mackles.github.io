@@ -46,7 +46,7 @@ In this example, we alternate which colour we assign as we traverse the graph ou
 
 When I was first thinking about the problem defined in the first blog posts, the first application that came to mind was a Person, Object, Location, Event (POLE) model.
 
-POLE Models are a common type of data model used in Fraud & Public Security. The main properties of a POLE model are as follows:  
+POLE Models are a common type of data model used in Fraud & other investigative use cases. The main properties of a POLE model are as follows:  
 * the person, object, location entities are not directly linked, instead are linked through event entities,
 * events can be linked to other events,
 * analysis records are linked by a one-many relationship from a POLE entity.
