@@ -1,6 +1,6 @@
 ---
 title: "Distributed Processing: Bipartite Optimizations and POLE"
-date: 2021-02-25T19:59:58Z
+date: 2021-03-25T19:59:58Z
 description: "Now we're cooking with gas"
 ---
 
