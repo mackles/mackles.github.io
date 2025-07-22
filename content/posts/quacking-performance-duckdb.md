@@ -1,7 +1,7 @@
 ---
 title: "Quacking Performance: DuckDB"
 date: 2025-07-22T12:44:37-07:00
-draft: true
+description: "A quick intro to columar data processing"
 ---
 
 # Intro-duck-tion
@@ -38,7 +38,7 @@ However, should you need to know how many detergents were sold in the last three
 ```goat
 COLUMN-BASED STORAGE (Aisles)
 ┌───────────────────────────────────────────────────────────────────┐
-│                         Warehouse Floor                          │
+│                          Warehouse Floor                          │
 │                                                                   │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
 │  │ Detergent   │  │    Bread    │  │   Drinks    │  │    Dates    │
