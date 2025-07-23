@@ -57,7 +57,7 @@ When doing large analytical queries where columns are likely to be omitted, and 
 
 # How should I use it?
 
-The biggest gain you'll see from this technology is avoiding directly querying data in relational data stores by utilizing an analytics data store or cache. Cloud providers have various options for storing large flat files but to start an on-premise file share works too (I always recommend starting simple and scaling when necessary). Use this to store datasets which are pre-joined as relational database will outperform column stores when executing joins. Data can be stored in a number of formats but Parquet is a sensible open standard. 
+The biggest gain you'll see from this technology is avoiding directly querying data in relational data stores by instead utilizing an analytics data store or cache. Cloud providers have various options for storing large flat files but to start an on-premise file share works too (I nearly always recommend starting simple and scaling when necessary). Use this to store datasets which are pre-joined as relational database will outperform column stores when executing joins and you'll save this processing step by caching the resulting dataset. Data can be stored in a number of formats, Parquet is the most common.
 
 ```goat
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
@@ -82,7 +82,7 @@ The biggest gain you'll see from this technology is avoiding directly querying d
                                    v
                          ┌─────────────────┐
                          │     DuckDB      │
-                         │  🦆 In-Process  │
+                         │  🦆 In-Process   │
                          │   Analytics     │
                          └─────────────────┘
                                    │
@@ -100,10 +100,12 @@ The biggest gain you'll see from this technology is avoiding directly querying d
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-The goal here is to reduce push & pull from your relational data stores and to store the data in a column format (you'll get less juice from the squeeze if DuckDB needs to translate from CSV or another row based format). DuckDB can pull directly from relational databases and improve performance, this architecture will mean repeat queries are more performant as the data is stored natively in a column storage. It has the added benefit of reducing load on databases and transfering it to the data store.  
+The goal here is to reduce push & pull from your relational data stores and to store the data in a column format (you'll get less juice from the squeeze if DuckDB needs to translate from CSV or another row based format). This architecture will mean repeat queries are more performant as the data is stored natively in a column storage. It has the added benefit of reducing load on databases and transfering it to the data store.  
+
+DuckDB can pull from relational databases directly and this will still result in more performant queries, but will still be slower than storing it in DuckDB's native format or Parquet.  
 
 
-# That's quacking, what do I do next?
+# How do I get started?
 
 Super simple, if you're using SAS the 2025.07 release includes [SAS/ACCESS for DuckDB](https://communities.sas.com/t5/SAS-Communities-Library/The-Quack-is-Back-SAS-ACCESS-Meets-DuckDB/ta-p/969374) and will work once you upgrade - simply use a LIBNAME:
 {{< highlight SAS>}}
