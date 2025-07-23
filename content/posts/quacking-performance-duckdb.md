@@ -53,7 +53,7 @@ COLUMN-BASED STORAGE (Aisles)
 └───────────────────────────────────────────────────────────────────┘
 ```
 
-When doing large analytical queries where columns are likely to be omitted, and data sets are massive (usually being the result of joining large business tables) DuckDB will outperform row based data sources. This will utilise less memory (as it won't have to visit every aisle) and take less time. 
+In practice, when doing large analytical queries where columns are likely to be omitted and data sets are large (usually being the result of joining large business tables) DuckDB will outperform row based data sources. DuckDB will skip over columns that aren't included in the query reducing memory usage and runtime whereas a row-based system will still need to read through each row. Notably however, inserts, edits and manipulation of individual rows are slow (we need to visit every aisle) so column-based storage is most advantageous in read-only & analytical use cases.
 
 # How should I use it?
 
@@ -94,7 +94,7 @@ The biggest gain you'll see from this technology is avoiding directly querying d
 │                                                                     │
 │   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐     │
 │   │ Monthly Sales   │  │ User Analytics  │  │ Event Metrics   │     │
-│   │   Summary       │  │   Dashboard     │  │   Report        │     │
+│   │   Summary       │  │   Dashboard     │  │   SAS Report    │     │
 │   └─────────────────┘  └─────────────────┘  └─────────────────┘     │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
