@@ -2,7 +2,6 @@
 title: "What's FHIR?"
 date: 2025-08-28T12:59:43-07:00
 description: "Part 1: Data and application standards for Healthcare"
-draft: true
 ---
 
 # Introduction to FHIR
