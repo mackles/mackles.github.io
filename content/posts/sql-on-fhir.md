@@ -6,7 +6,7 @@ description: "Part 2: Analyzing FHIR Data 101"
 
 # Introduction to SQL on FHIR
 
-FHIR resources are JSON documents with nested structures and arrays. This is great for supporting solutions and applications but makes them difficult to query with SQL or run analytical processes against. As Data Analysts, we want to be able to define mappings from JSON fields to tabular columns so as we can change FHIR resources into SAS Datasets, Pandas/Polars dataframes and other tabular formats we know and love. 
+FHIR ([Fast Healthcare Interoperability Resources](https://www.hl7.org/fhir/)) resources are JSON documents with nested structures and arrays. In another [blog post](http://mackle.io/posts/whats-fhir/) I introduced FHIR and it's role in standardizing healthcare data. It is great for supporting solutions and applications but makes them difficult to query with SQL or run analytical processes against. As Data Analysts, we want to be able to define mappings from JSON fields to tabular columns so as we can change FHIR resources into SAS Datasets, Pandas/Polars dataframes and other tabular formats we know and love.
 
 [SQL on FHIR](https://build.fhir.org/ig/FHIR/sql-on-fhir-v2/) is a common standard that defines these mappings. SQL on FHIR does this through View Definitions - specifications that define how to flatten common FHIR resources. ViewDefintions are themselves JSON files and can be exchanged and stored by FHIR Servers. 
 
