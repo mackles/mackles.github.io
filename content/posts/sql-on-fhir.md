@@ -1,6 +1,6 @@
 ---
 title: "SQL on FHIR"
-date: 2025-08-30T08:45:41-07:00
+date: 2025-11-05T08:45:41-07:00
 description: "Part 2: Analyzing FHIR Data 101"
 ---
 
