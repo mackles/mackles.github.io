@@ -1,5 +1,5 @@
 ---
-title: "Building an MCP Server"
+title: "Building a MCP Server"
 date: 2026-05-04T08:21:19-05:00
 description: "Learn to let agents loose on your resources"
 ---
